@@ -1,10 +1,12 @@
 package com.emsi.hopital.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Collection;
 import java.util.Date;
 
+@Data
 @Entity
 public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
