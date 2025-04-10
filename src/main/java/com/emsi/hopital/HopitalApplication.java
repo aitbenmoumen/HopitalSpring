@@ -1,6 +1,8 @@
 package com.emsi.hopital;
 
+import com.emsi.hopital.entities.Medcin;
 import com.emsi.hopital.entities.Patient;
+import com.emsi.hopital.repositories.MedcinRepo;
 import com.emsi.hopital.repositories.PatientRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,7 +34,7 @@ public class HopitalApplication {
     */
 
     @Bean
-    CommandLineRunner start(PatientRepo patientRepo) {
+    CommandLineRunner start(PatientRepo patientRepo, MedcinRepo medcinRepo) {
         return args -> {
             Stream.of("Ali", "Hicham", "Yousef")
             .forEach(name -> {
@@ -41,7 +43,16 @@ public class HopitalApplication {
                 patient.setMalade(true);
                 patient.setDateOfBirth(new Date());
                 patientRepo.save(patient);
+
             });
+            Stream.of("Ahmed", "Salmane", "Hamid")
+                    .forEach(name-> {
+                        Medcin medcin = new Medcin();
+                        medcin.setNom(name);
+                        medcin.setEmail(name+".email@gmail.com");
+                        medcin.setSpecialite(Math.random()>0.5?"Cardio":"Dentiste");
+                        medcinRepo.save(medcin);
+                    });
         };
     }
 
